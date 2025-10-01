@@ -5,7 +5,7 @@ frappe.db.get_value(
   web_include_js = "/assets/bayan_erp/js/custom_login.js"
 
 
-**We can make API calls from frappe code it self below is the example:**
+**We can make API calls from frappe code it self below is the example: below are done in console**
 
   from frappe.integrations.utils import make_get_request, make_post_request
   url = 'https://api.printrove.com/api/external/token'
