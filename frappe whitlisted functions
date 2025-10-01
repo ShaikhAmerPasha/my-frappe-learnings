@@ -3,3 +3,10 @@ frappe.db.get_value(
 
 For Adding text on frappe login page:
   web_include_js = "/assets/bayan_erp/js/custom_login.js"
+
+
+We can make API calls from frappe code it self below is the example:
+
+  from frappe.integrations.utils import make_get_request, make_post_request
+  url = 'https://api.printrove.com/api/external/token'
+  response = make_post_request(url, {"email": email, "password": password}
