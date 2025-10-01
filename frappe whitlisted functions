@@ -10,3 +10,4 @@ frappe.db.get_value(
   from frappe.integrations.utils import make_get_request, make_post_request
   url = 'https://api.printrove.com/api/external/token'
   response = make_post_request(url, data={"email": email, "password": password}
+  frappe.make_get_request(f"{BASE_URL}/api/external/products", headers=headers)
