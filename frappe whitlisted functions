@@ -11,3 +11,40 @@ frappe.db.get_value(
   url = 'https://api.printrove.com/api/external/token'
   response = make_post_request(url, data={"email": email, "password": password}
   make_get_request(f"{BASE_URL}/api/external/products", headers=headers)
+
+
+
+**We have written this foe Sales Invoice for export Automation**
+
+frappe.ui.form.on('Sales Invoice', {
+    custom_zatca_export_invoice: function(frm) {
+        if (frm.doc.custom_zatca_export_invoice == 1) {
+
+            if (frm.doc.custom_zatca_tax_category !== 'Zero Rated') {
+                frm.set_value('custom_zatca_tax_category', 'Zero Rated');
+            }
+            frm.set_df_property('custom_zatca_tax_category', 'read_only', 1);
+            frm.trigger('custom_zatca_tax_category');
+
+            if (frm.doc.custom_exemption_reason_code !== 'VATEX-SA-32') {
+                frm.set_value('custom_exemption_reason_code', 'VATEX-SA-32');
+                
+            }
+            frm.set_df_property('custom_exemption_reason_code', 'read_only', 1);
+
+            if (frm.doc.taxes_and_charges !== 'KSA VAT Zero - TST') {
+                frm.set_value('taxes_and_charges', 'KSA VAT Zero - TST');
+                frm.trigger('taxes_and_charges');
+            }
+
+        } else if (frm.doc.custom_zatca_export_invoice == 0) {
+
+            frm.set_df_property('custom_zatca_tax_category', 'read_only', 0);
+            frm.set_df_property('custom_exemption_reason_code', 'read_only', 0);
+            frm.set_value('custom_zatca_tax_category', 'Standard');
+            frm.set_value('custom_exemption_reason_code', 'Standard 15%');
+            frm.set_value('taxes_and_charges', 'KSA VAT 15% - TST');
+            
+        }
+    }
+});
